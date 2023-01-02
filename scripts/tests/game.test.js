@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-const {game, newGame} = require("../game");
+const {game, newGame, showScore, addTurn} = require("../game");
 
 beforeAll(() => {
     let fs = require("fs");
@@ -41,10 +41,13 @@ describe("newGame works correctly", () => {
     test("newGame sets score to zero", () => {
         expect(game.score).toEqual(0);
     });
-    test("newGame clears currentGame array", () => {
-        expect(game.currentGame).toEqual([]);
+    test("there should be 1 element in currentGame array", () => {
+        expect(game.currentGame.length).toBe(1);
     });
     test("newGame clears playerMoves array", () => {
         expect(game.playerMoves).toEqual([]);
     });
-})
+    test("score displayed is reset to 0", () => {
+        expect(document.getElementById('score').innerText).toEqual(0);
+    });
+});
