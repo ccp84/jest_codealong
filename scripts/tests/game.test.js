@@ -87,6 +87,6 @@ describe("gameplay works correctly", () => {
     test("should increment the score if the guess is correct", () => {
         game.playerMoves.push(game.currentGame[0]);
         playerTurn();
-        expect(game.score)toBe(1);
+        expect(game.score).toBe(1);
     });
 });
