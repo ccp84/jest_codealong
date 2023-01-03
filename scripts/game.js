@@ -61,7 +61,10 @@ function playerTurn() {
             showScore();
             addTurn();
         }
+    } else {
+        alert('Wrong Move!');
+        newGame();
     }
 }
 
-module.exports = {game, newGame, showScore, addTurn, lightsOn, showTurns};
+module.exports = {game, newGame, showScore, addTurn, lightsOn, showTurns, playerTurn};
