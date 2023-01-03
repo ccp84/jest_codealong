@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-const {game, newGame, showScore, addTurn} = require("../game");
+const {game, newGame, showScore, addTurn, lightsOn, showTurns} = require("../game");
 
 beforeAll(() => {
     let fs = require("fs");
@@ -49,5 +49,39 @@ describe("newGame works correctly", () => {
     });
     test("score displayed is reset to 0", () => {
         expect(document.getElementById('score').innerText).toEqual(0);
+    });
+    test("data listener sttribute to be true", () => {
+        const elements = document.getElementsByClassName('circle');
+        for(let element of elements) {
+            expect(element.getAttribute('data-listener')).toEqual('true');
+        }
+    });
+});
+
+describe("gameplay works correctly", () => {
+    beforeEach(() => {
+        game.score = 0;
+        game.currentGame = [];
+        game.playerMoves = [];
+        addTurn();
+    });
+    afterEach(() => {
+        game.score = 0;
+        game.currentGame = [];
+        game.playerMoves = [];
+    });
+    test("addTurn() adds element to currentGame array", () => {
+        addTurn();
+        expect(game.currentGame.length).toBe(2);
+    });
+    test("light class should be added to the circle", () => {
+        let button = document.getElementById(game.currentGame[0]);
+        lightsOn(game.currentGame[0]);
+        expect(button.classList).toContain('light');
+    });
+    test("showTurns should update game.turnNumber", () => {
+        game.turnNumber = 10;
+        showTurns();
+        expect(game.turnNumber).toBe(0);
     });
 });
